@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:json-logger="http://www.mulesoft.org/schema/mule/json-logger" xmlns:os="http://www.mulesoft.org/schema/mule/os" xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce" xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties" xmlns:tls="http://www.mulesoft.org/schema/mule/tls" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/os http://www.mulesoft.org/schema/mule/os/current/mule-os.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd http://www.mulesoft.org/schema/mule/json-logger http://www.mulesoft.org/schema/mule/json-logger/current/mule-json-logger.xsd http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd">
+    <salesforce:sfdc-config name="salesforceConfig-secure" doc:name="Salesforce_Config" doc:id="82ac8461-e35b-4bb9-8ed0-02f966590e17">
+        <salesforce:basic-connection username="${secure::salesforce.username}" password="${secure::salesforce.password}" securityToken="${secure::salesforce.securitytoken}" />
+    </salesforce:sfdc-config>
+    <http:listener-config name="apiHttpListenerConfig" doc:name="HTTP_Listener_config" doc:id="0d6988e9-665a-440c-9f8b-3a2c1edd6faf">
+        <http:listener-connection host="0.0.0.0" port="${https.port}" protocol="HTTPS" tlsContext="tlsContext"  />
+    </http:listener-config>
+<apikit:config name="apixSalesforceSapiConfig" api="resource::b0beec90-c6cc-4c36-8f7c-ef1f8f91253b:sales-jenkins-test-1302:1.0.5:raml:zip:sales-jenkins-test-1302.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />    
+<tls:context name="tlsContext" doc:name="TLS Context" doc:id="b911dd3c-37d2-4456-9db2-e642c667b755">
+        <tls:key-store type="${tls.keystore.type}" path="${tls.keystore.path}" keyPassword="${secure::tls.keystore.password}" password="${secure::tls.keystore.password}" />
+    </tls:context>
+     <global-property doc:name="Global Property" doc:id="fdbd2b4e-5dff-4186-9754-4f90d1695e19" name="mule.env" value="${mule.env}" />
+    <configuration-properties doc:name="commonConfigurationProperties" doc:id="0e67cf4f-2729-4696-adc8-99a111701ec9" file="properties/common-properties.yaml" />
+    <configuration-properties doc:name="envConfigurationProperties" doc:id="ea05bcba-5ffe-4953-8cf2-d7702ee99a1f" file="properties/secure-${mule.env}.yaml" />
+    <secure-properties:config name="securePropertiesConfig" doc:name="Secure Properties Config" doc:id="eb224fd7-d696-4b04-9232-d055b7c9654e" file="properties/secure-${mule.env}.yaml" key="${secure.key}">
+        <secure-properties:encrypt algorithm="Blowfish" />
+    </secure-properties:config>
+    
+    <global-property doc:name="Global Property" doc:id="9830f600-8733-4e8b-9285-c9a083ef7f0e" name="secure.key" value="${secure.key}" />
+    <import doc:name="importCommonHealth" doc:id="c7382425-7d6e-4a49-a4e3-873b59886ef7" file="common-health.xml" />
+    <import doc:name="importCommonErrorHandler" doc:id="88e9c4d6-26a7-4082-bd11-735ba14f93a8" file="common-error-handler.xml" />
+    <api-gateway:autodiscovery apiId="${api.id}" ignoreBasePath="true" doc:name="apiAutodiscovery" doc:id="03fb641f-3829-4662-bcc3-bcd5b73c9df7" flowRef="apix-salesforce-sapi-main" />
+</mule>

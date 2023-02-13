@@ -1,0 +1,157 @@
+#%RAML 1.0 Library
+types:
+  account:
+   properties:
+    accountId:
+     description: Account ID
+     type: string
+     required: false
+    tradingName:
+     type: string
+     required: false
+    accountNumber:
+     type: string
+     required: false
+    industry:
+     type: string
+     required: false
+    contacts:
+      type: array
+      required: false
+      items:
+        properties:
+          firstName: 
+            type: string
+            required: false
+          lastName:
+            type: string
+            required: false
+          title:
+            type: string
+            required: false
+          email:
+            type: string
+            required: false
+          phone:
+            type: string
+            required: false 
+    links:
+      type: array
+      required: false
+      items:
+        properties:
+          rel:
+            type: string
+            required: false
+          href:
+            type: string
+            required: false
+  postaccount:
+      properties:
+        name:
+          type: string
+          required: false
+        accountNumber:
+          type: string
+          required: false
+        phone: 
+          type: string
+          required: false
+        billingCity:
+          type: string
+          required: false
+  contacts:
+    properties:
+          id:
+            type: string | nil
+            required: false
+          firstName: 
+            type: string | nil
+            required: false
+          lastName:
+            type: string | nil
+            required: false
+          email:
+            type: string | nil
+            required: false
+          phone:
+            type: string | nil
+            required: false     
+  lead:
+    properties:
+              id:
+                type: string | nil
+                required: false
+              firstName: 
+                type: string | nil
+                required: false
+              lastName:
+                type: string | nil
+                required: false
+              email:
+                type: string | nil
+                required: false
+              phone:
+                type: string | nil
+                required: false
+  campaign:
+    properties:
+              id:
+                type: string | nil
+                required: false
+              name:
+                type: string
+                required: false
+              description:
+                type: string | nil
+                required: false
+              status:
+                type: string | nil
+                required: false
+              type:
+                type: string | nil
+                required: false    
+              expectedResponse:
+                type: string | nil
+                required: false
+              campaignMemberRecordTypeId:
+                type: string | nil
+                required: false
+              startDate: 
+                type: string | nil
+                required: false
+              numberSent:
+                 type: string | nil
+                 required: false
+              expectedRevenue:
+                type: string | nil
+                required: false    
+              ownerId: 
+                type: string | nil
+                required: false
+              budgetedCost: 
+                type: string | nil
+                required: false
+              parentId: 
+                 type: string | nil
+                 required: false
+              endDate:
+                 type: string | nil
+                 required: false 
+              actualCost: 
+                 type: string | nil
+                 required: false
+        
+
+
+	          
+     
+     
+          
+  
+
+        
+
+
+
+        

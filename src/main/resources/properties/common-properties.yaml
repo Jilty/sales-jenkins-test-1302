@@ -1,0 +1,11 @@
+api: 
+  #groupId: "b0beec90-c6cc-4c36-8f7c-ef1f8f91253b"
+  artifactId: "${project.artifactId}"
+  version: "${project.version}"
+  #spec: "resource::${api.groupId}:${api.artifactId}:${api.version}:oas:zip:api.json"
+  majorVersion: "v1"
+  http:
+    port: "8081"
+  https:
+    port: "8082"
+  listenerConfig: "apiHttpListenerConfig"

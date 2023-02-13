@@ -1,0 +1,165 @@
+#%RAML 1.0 Trait
+usage: Standard Error Responses
+
+responses: 
+  400:
+    headers:
+      Content-Type:
+    description:
+      The server cannot or will not process the request due to something that is perceived to be a client error (e.g., malformed request syntax, invalid request message framing, or deceptive request routing).
+    body:
+      application/json:
+        example: |
+          {     
+                "errorMessage": "The required header 'x-correlation-id' was not provided",
+                "errorType": "BAD REQUEST",
+                "correlationId": "65189d64-019c-11eb-adc1-0242ac120002",
+                "errorCode": 400 }
+  401:
+    headers:
+      Content-Type:
+    description:
+      The supplied credentials are invalid.
+    body:
+      application/json:
+        example: |
+          {
+                "errorMessage": "credential invalid",
+                "errorType": "Forbidden",
+                "correlationId": "65189d64-019c-11eb-adc1-0242ac120002",
+                "errorCode": 401 }
+  403:
+    headers:
+      Content-Type:
+    description:
+      There is a problem with the credentials that were provided.
+    body:
+      application/json:
+        example: |
+          {
+               "errorMessage": "unauthorized",
+                "errorType": "Forbidden",
+                "correlationId": "65189d64-019c-11eb-adc1-0242ac120002",
+                "errorCode": 403 }
+  404:
+    headers:
+      Content-Type:
+    description:
+      The server cannot find the requested resource.
+    body:
+      application/json:
+        example: |
+          { 
+               "errorMessage": "The server can not find the requested resource",
+               "errorType": "Not Found",
+               "correlationId": "65189d64-019c-11eb-adc1-0242ac120002",
+               "errorCode": 404 }
+  405:
+    headers:
+      Content-Type:
+    description:
+      A request was made of a resource using a request method not supported by that resource; for example, using GET on a form which requires data to be presented via POST, or using PUT on a read-only resource.
+    body:
+      application/json: 
+        example: |
+          {
+                  "errorMessage": "The Delete http method is not allowed",
+                  "errorType": "Method Not Allowed",
+                  "correlationId": "65189d64-019c-11eb-adc1-0242ac120002",
+                  "errorCode": 405}
+  406:
+    headers:
+      Content-Type:
+    description:
+      The target resource does not have a current representation that would be acceptable to the user agent.
+    body:
+      application/json:
+        example: |
+          {     
+                "errorMessage": "The server can not find the requested resource",
+                 "errorType": "Not Found",
+                 "correlationId": "65189d64-019c-11eb-adc1-0242ac120002",
+                 "errorCode": 409 }
+  415:
+    headers:
+      Content-Type:
+    description:
+      The accept header specified an unsupported media type.
+    body:
+      application/json: 
+        example: |
+          {       
+               "errorMessage": "The media format of the requested data is not supported",
+                "errorType": "Unsupported Media Type",
+                "correlationId": "65189d64-019c-11eb-adc1-0242ac120002",
+                "errorCode": 415}
+  422:
+          headers:
+            Content-Type:
+          description: | 
+            The request was well-formed but was unable to be followed due to business validation error occurred.
+          body:
+            application/json:
+              
+              example: |
+                       {
+                         "errorMessage": "Card number is invalid.",
+                        "errorType": "Business Validation",
+                        "correlationId": "65189d64-019c-11eb-adc1-0242ac120002",
+                        "errorCode": 422}    
+  500:
+          headers:
+            Content-Type:
+          description: |
+            The server encountered an unexpected condition that prevented it from fulfilling the request.
+          body:
+            application/json:
+              
+              example: |
+               { 
+                 "errorMessage": "An error has occurred while processing the request.",
+                "errorType": "Internal Server Error",
+                "correlationId": "65189d64-019c-11eb-adc1-0242ac120002",
+                "errorCode": 500 }
+  502:
+          headers:
+            Content-Type:
+          description: |
+            The server, acting as a proxy or gateway service, was not able to get a valid or any response from the upstream server.
+          body:
+            application/json:
+              
+              example: |
+               { 
+                 "errorMessage": "Bad Gateway.",
+                "errorType": "Bad Gateway",
+                "correlationId": "65189d64-019c-11eb-adc1-0242ac120002",
+                "errorCode": 502 }
+  503:
+          headers:
+            Content-Type:
+          description: |
+            The server is not ready to handle the request due to temporary unavailable
+          body:
+            application/json:
+              
+              example: |
+               {
+                "errorMessage": "Service Unavailable",
+                "errorType": "Service Unavailable",
+                "correlationId": "65189d64-019c-11eb-adc1-0242ac120002",
+                "errorCode": 503}
+  504:
+          headers:
+            Content-Type:
+          description: |
+            The server, while acting as a gateway or proxy, did not receive a timely response from the upstream server specified by the URI (e.g. HTTP, FTP, LDAP) or some other auxiliary server (e.g. DNS) it needed to access in attempting to complete the request.
+          body:
+            application/json:
+             
+              example: |
+               {
+                       "errorMessage": "Gateway Timeout",
+                        "errorType": "Gateway Timeout",
+                        "correlationId": "65189d64-019c-11eb-adc1-0242ac120002",
+                        "errorCode": 504}

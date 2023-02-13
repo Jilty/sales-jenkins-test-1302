@@ -1,0 +1,18 @@
+[{
+        
+        "Description": null,
+        "ExpectedResponse": "0.0",
+        "type": "Campaign",
+        "CampaignMemberRecordTypeId": null,
+        "Name": "kkkkkoo",
+        "StartDate": null,
+        "NumberSent": "0.0",
+        "ExpectedRevenue": null,
+        "OwnerId": "0055g0000010kF7AAI",
+        "BudgetedCost": null,
+        "ParentId": null,
+        "Status": "Planned",
+        "EndDate": null,
+        "ActualCost": null,
+        "Type": "Conference"
+    }]

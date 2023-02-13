@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:json-logger="http://www.mulesoft.org/schema/mule/json-logger"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/json-logger http://www.mulesoft.org/schema/mule/json-logger/current/mule-json-logger.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<error-handler name="connector-error-handler" doc:id="4cbdeac8-a200-4755-9216-0b7042c18a56" >
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="6ee439ec-60be-4443-90e0-b27186c7af33" type="SALESFORCE:CONNECTIVITY">
+			<logger level="ERROR" doc:name="Start Logger" doc:id="5a5031f2-4fa5-4e3d-889e-9ac2010c8c31" message="#[payload]"/>
+			<set-variable value="500" doc:name="httpStatus" doc:id="199f8b6d-bc93-4ea6-b902-ce346f54876a" variableName="httpStatus"/>
+			<flow-ref doc:name="error-flow" doc:id="fb24bf52-093c-4fca-800e-6f5029b3116f" name="error-flow"/>
+		</on-error-propagate>
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="0eb9806e-0c49-4d89-872a-a43eef91c512" type="SALESFORCE:INVALID_INPUT">
+			<logger level="ERROR" doc:name="Start Logger" doc:id="c9959860-8c1b-4982-9df3-fd1328df7877" message="#[payload]"/>
+			<set-variable value="400" doc:name="httpStatus" doc:id="9eae343c-8635-4c6b-b5eb-44b4f836cc8f" variableName="httpStatus"/>
+			<flow-ref doc:name="error-flow" doc:id="1a94616c-baa7-4d70-8665-dab5fb24f085" name="error-flow"/>
+		</on-error-propagate>
+		<on-error-propagate enableNotifications="true" logException="true" doc:name=" On Error Propagate" doc:id="b887096d-edb4-43d8-8998-b7bac882aa3e" type="SALESFORCE:INVALID_RESPONSE" >
+			<logger level="ERROR" doc:name="Start Logger" doc:id="6f4c3969-1d9c-46e0-a9f5-7ab38b81b4e8" />
+			<set-variable value="502" doc:name="httpStatus" doc:id="eb63f06d-da01-4d28-ac07-ea5b70439479" variableName="httpStatus" />
+			<flow-ref doc:name="error-flow" doc:id="18c6afca-0b4f-47f5-b475-319368664075" name="error-flow" />
+		</on-error-propagate>
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="e202d04e-3fd2-42b2-ac60-1713d6cda707" type="SALESFORCE:LIMIT_EXCEEDED" >
+			<logger level="ERROR" doc:name="Start Logger" doc:id="1bba6d7b-2de7-4e21-afa1-f4e1b3014a25" />
+			<set-variable value="429" doc:name="httpStatus" doc:id="2b1491da-9ebc-49d0-a4a4-6e00205dae7c" variableName="httpStatus" />
+			<flow-ref doc:name="error-flow" doc:id="a7f6922d-85af-4f35-a5e6-c33171799031" name="error-flow" />
+		</on-error-propagate>
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="0e64887b-98a9-4937-92b0-0f878d8053c3" type="SALESFORCE:MUTUAL_AUTHENTICATION_FAILED" >
+			<logger level="ERROR" doc:name="Start Logger" doc:id="0412ecd6-4e38-47e4-8f43-2fdec45fea91" />
+			<set-variable value="403" doc:name="httpStatus" doc:id="2ce90e05-f78c-4774-a8de-39b63769bdc4" variableName="httpStatus" />
+			<flow-ref doc:name="error-flow" doc:id="fef830d7-c196-4198-b7fd-5b4818789b03" name="error-flow" />
+		</on-error-propagate>
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="c5040346-542a-42a5-bacf-2730a525ffab" type="SALESFORCE:NOT_FOUND" >
+			<logger level="ERROR" doc:name="Start Logger" doc:id="f314ff8a-5ceb-4568-a09f-fedceb733637" />
+			<set-variable value="404" doc:name="httpStatus" doc:id="d18d4af1-90a9-45e1-bab0-38144e882430" variableName="httpStatus" />
+			<flow-ref doc:name="error-flow" doc:id="54aae1f7-fc4c-4c39-9e0c-c1db2abcad84" name="error-flow" />
+		</on-error-propagate>
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="157e0305-8b4f-4d8a-9a37-45358f4192a9" type="SALESFORCE:TIMEOUT" >
+			<logger level="ERROR" doc:name="Start Logger" doc:id="476c7772-acf2-41cd-8f63-8baf098880fd" />
+			<set-variable value="504" doc:name="httpStatus" doc:id="1519dd78-6a12-4830-88df-e31c6f851946" variableName="httpStatus" />
+			<flow-ref doc:name="error-flow" doc:id="edc0cb97-6519-4b0d-b93f-db7ce3a8234e" name="error-flow" />
+		</on-error-propagate>
+	</error-handler>
+	<flow name="error-flow" doc:id="a4ca0d31-810b-469c-855e-cba3d9f3f347" >
+		<ee:transform doc:name="Error Json" doc:id="db828e42-6229-40a4-857c-12f497cf68f1" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	statusCode: vars.httpStatus,
+	message: error.errorType.identifier,
+	description: error.description
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>

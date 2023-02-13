@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="campaign-test-suite.xml" />
+	<munit:test name="campaign-test-suite-query-all-campaign-flowTest" doc:id="a739b676-ae9d-4189-ad90-262b5d92ce6a" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="8a67a224-cbbc-496b-8573-9aee1ed13a96" processor="salesforce:query">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="8a591134-bac8-4607-b129-aef5f206005d" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[[&#10;    {&#10;        "LastModifiedDate": "2021-11-10T06:42:17.000Z",&#10;        "Description": null,&#10;        "IsActive": "false",&#10;        "AmountAllOpportunities": "0.0",&#10;        "ExpectedResponse": "0.0",&#10;        "LastReferencedDate": "2021-11-10T07:05:06.000Z",&#10;        "type": "Campaign",&#10;        "CampaignMemberRecordTypeId": null,&#10;        "Name": "jgkj",&#10;        "NumberOfLeads": "0",&#10;        "NumberOfOpportunities": "0",&#10;        "StartDate": null,&#10;        "NumberSent": "0.0",&#10;        "NumberOfResponses": "0",&#10;        "ExpectedRevenue": null,&#10;        "OwnerId": "0055g0000010kF7AAI",&#10;        "CreatedById": "0055g0000010kF7AAI",&#10;        "AmountWonOpportunities": "0.0",&#10;        "BudgetedCost": null,&#10;        "ParentId": null,&#10;        "Status": "Planned",&#10;        "IsDeleted": "false",&#10;        "NumberOfContacts": "0",&#10;        "LastViewedDate": "2021-11-10T07:05:06.000Z",&#10;        "EndDate": null,&#10;        "ActualCost": null,&#10;        "SystemModstamp": "2021-11-10T06:42:17.000Z",&#10;        "Type": "Conference",&#10;        "NumberOfWonOpportunities": "0",&#10;        "CreatedDate": "2021-11-10T06:42:17.000Z",&#10;        "LastActivityDate": null,&#10;        "Id": "7015g000000QLfJAAW",&#10;        "LastModifiedById": "0055g0000010kF7AAI",&#10;        "NumberOfConvertedLeads": "0"&#10;    },&#10;    {&#10;        "LastModifiedDate": "2021-11-10T07:04:07.000Z",&#10;        "Description": null,&#10;        "IsActive": "false",&#10;        "AmountAllOpportunities": "0.0",&#10;        "ExpectedResponse": "0.0",&#10;        "LastReferencedDate": null,&#10;        "type": "Campaign",&#10;        "CampaignMemberRecordTypeId": null,&#10;        "Name": "kkkkkoo",&#10;        "NumberOfLeads": "0",&#10;        "NumberOfOpportunities": "0",&#10;        "StartDate": null,&#10;        "NumberSent": "0.0",&#10;        "NumberOfResponses": "0",&#10;        "ExpectedRevenue": null,&#10;        "OwnerId": "0055g0000010kF7AAI",&#10;        "CreatedById": "0055g0000010kF7AAI",&#10;        "AmountWonOpportunities": "0.0",&#10;        "BudgetedCost": null,&#10;        "ParentId": null,&#10;        "Status": "Planned",&#10;        "IsDeleted": "false",&#10;        "NumberOfContacts": "0",&#10;        "LastViewedDate": null,&#10;        "EndDate": null,&#10;        "ActualCost": null,&#10;        "SystemModstamp": "2021-11-10T07:04:07.000Z",&#10;        "Type": "Conference",&#10;        "NumberOfWonOpportunities": "0",&#10;        "CreatedDate": "2021-11-10T07:04:07.000Z",&#10;        "LastActivityDate": null,&#10;        "Id": "7015g000000QLfTAAW",&#10;        "LastModifiedById": "0055g0000010kF7AAI",&#10;        "NumberOfConvertedLeads": "0"&#10;    }]]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="query-all-campaign-flow" doc:id="9f0b5d2b-9e37-4f95-9507-352518684de8" name="query-all-campaign-flow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="9e8f9d8a-f8cb-45bc-ab48-0b7cca729775" actual="#[payload]" expected='#[[&#10;    {&#10;        "LastModifiedDate": "2021-11-10T06:42:17.000Z",&#10;        "Description": null,&#10;        "IsActive": "false",&#10;        "AmountAllOpportunities": "0.0",&#10;        "ExpectedResponse": "0.0",&#10;        "LastReferencedDate": "2021-11-10T07:05:06.000Z",&#10;        "type": "Campaign",&#10;        "CampaignMemberRecordTypeId": null,&#10;        "Name": "jgkj",&#10;        "NumberOfLeads": "0",&#10;        "NumberOfOpportunities": "0",&#10;        "StartDate": null,&#10;        "NumberSent": "0.0",&#10;        "NumberOfResponses": "0",&#10;        "ExpectedRevenue": null,&#10;        "OwnerId": "0055g0000010kF7AAI",&#10;        "CreatedById": "0055g0000010kF7AAI",&#10;        "AmountWonOpportunities": "0.0",&#10;        "BudgetedCost": null,&#10;        "ParentId": null,&#10;        "Status": "Planned",&#10;        "IsDeleted": "false",&#10;        "NumberOfContacts": "0",&#10;        "LastViewedDate": "2021-11-10T07:05:06.000Z",&#10;        "EndDate": null,&#10;        "ActualCost": null,&#10;        "SystemModstamp": "2021-11-10T06:42:17.000Z",&#10;        "Type": "Conference",&#10;        "NumberOfWonOpportunities": "0",&#10;        "CreatedDate": "2021-11-10T06:42:17.000Z",&#10;        "LastActivityDate": null,&#10;        "Id": "7015g000000QLfJAAW",&#10;        "LastModifiedById": "0055g0000010kF7AAI",&#10;        "NumberOfConvertedLeads": "0"&#10;    },&#10;    {&#10;        "LastModifiedDate": "2021-11-10T07:04:07.000Z",&#10;        "Description": null,&#10;        "IsActive": "false",&#10;        "AmountAllOpportunities": "0.0",&#10;        "ExpectedResponse": "0.0",&#10;        "LastReferencedDate": null,&#10;        "type": "Campaign",&#10;        "CampaignMemberRecordTypeId": null,&#10;        "Name": "kkkkkoo",&#10;        "NumberOfLeads": "0",&#10;        "NumberOfOpportunities": "0",&#10;        "StartDate": null,&#10;        "NumberSent": "0.0",&#10;        "NumberOfResponses": "0",&#10;        "ExpectedRevenue": null,&#10;        "OwnerId": "0055g0000010kF7AAI",&#10;        "CreatedById": "0055g0000010kF7AAI",&#10;        "AmountWonOpportunities": "0.0",&#10;        "BudgetedCost": null,&#10;        "ParentId": null,&#10;        "Status": "Planned",&#10;        "IsDeleted": "false",&#10;        "NumberOfContacts": "0",&#10;        "LastViewedDate": null,&#10;        "EndDate": null,&#10;        "ActualCost": null,&#10;        "SystemModstamp": "2021-11-10T07:04:07.000Z",&#10;        "Type": "Conference",&#10;        "NumberOfWonOpportunities": "0",&#10;        "CreatedDate": "2021-11-10T07:04:07.000Z",&#10;        "LastActivityDate": null,&#10;        "Id": "7015g000000QLfTAAW",&#10;        "LastModifiedById": "0055g0000010kF7AAI",&#10;        "NumberOfConvertedLeads": "0"&#10;    }]]'/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="campaign-test-suite-query-campaign-by-id-flowTest" doc:id="58da0d64-fe0e-4b8d-8174-cd2fc7982190" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="74dc3186-cc26-48ee-b0ae-1225c037afb8" processor="salesforce:query">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="2c13a8db-5451-40d3-8425-609bd43c6beb" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[[&#10;    {&#10;        "LastModifiedDate": "2021-11-10T06:42:17.000Z",&#10;        "Description": null,&#10;        "IsActive": "false",&#10;        "AmountAllOpportunities": "0.0",&#10;        "ExpectedResponse": "0.0",&#10;        "LastReferencedDate": "2021-11-10T07:05:06.000Z",&#10;        "type": "Campaign",&#10;        "CampaignMemberRecordTypeId": null,&#10;        "Name": "jgkj",&#10;        "NumberOfLeads": "0",&#10;        "NumberOfOpportunities": "0",&#10;        "StartDate": null,&#10;        "NumberSent": "0.0",&#10;        "NumberOfResponses": "0",&#10;        "ExpectedRevenue": null,&#10;        "OwnerId": "0055g0000010kF7AAI",&#10;        "CreatedById": "0055g0000010kF7AAI",&#10;        "AmountWonOpportunities": "0.0",&#10;        "BudgetedCost": null,&#10;        "ParentId": null,&#10;        "Status": "Planned",&#10;        "IsDeleted": "false",&#10;        "NumberOfContacts": "0",&#10;        "LastViewedDate": "2021-11-10T07:05:06.000Z",&#10;        "EndDate": null,&#10;        "ActualCost": null,&#10;        "SystemModstamp": "2021-11-10T06:42:17.000Z",&#10;        "Type": "Conference",&#10;        "NumberOfWonOpportunities": "0",&#10;        "CreatedDate": "2021-11-10T06:42:17.000Z",&#10;        "LastActivityDate": null,&#10;        "Id": "7015g000000QLfJAAW",&#10;        "LastModifiedById": "0055g0000010kF7AAI",&#10;        "NumberOfConvertedLeads": "0"&#10;    }&#10;]&#10;]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Event" doc:id="6ac49596-4448-490b-aace-4511fdf57765" >
+				<munit:attributes value='#[{"uriParams":{"campaignid":"7015g000000QLfJAAW"}}]' />
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="query-campaign-by-id-flow" doc:id="5c40cbd7-0197-4643-b577-403a2727498c" name="query-campaign-by-id-flow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="e7005910-271c-413e-8393-faa8bc02da86" actual="#[payload]" expected='#[[&#10;    {&#10;        "LastModifiedDate": "2021-11-10T06:42:17.000Z",&#10;        "Description": null,&#10;        "IsActive": "false",&#10;        "AmountAllOpportunities": "0.0",&#10;        "ExpectedResponse": "0.0",&#10;        "LastReferencedDate": "2021-11-10T07:05:06.000Z",&#10;        "type": "Campaign",&#10;        "CampaignMemberRecordTypeId": null,&#10;        "Name": "jgkj",&#10;        "NumberOfLeads": "0",&#10;        "NumberOfOpportunities": "0",&#10;        "StartDate": null,&#10;        "NumberSent": "0.0",&#10;        "NumberOfResponses": "0",&#10;        "ExpectedRevenue": null,&#10;        "OwnerId": "0055g0000010kF7AAI",&#10;        "CreatedById": "0055g0000010kF7AAI",&#10;        "AmountWonOpportunities": "0.0",&#10;        "BudgetedCost": null,&#10;        "ParentId": null,&#10;        "Status": "Planned",&#10;        "IsDeleted": "false",&#10;        "NumberOfContacts": "0",&#10;        "LastViewedDate": "2021-11-10T07:05:06.000Z",&#10;        "EndDate": null,&#10;        "ActualCost": null,&#10;        "SystemModstamp": "2021-11-10T06:42:17.000Z",&#10;        "Type": "Conference",&#10;        "NumberOfWonOpportunities": "0",&#10;        "CreatedDate": "2021-11-10T06:42:17.000Z",&#10;        "LastActivityDate": null,&#10;        "Id": "7015g000000QLfJAAW",&#10;        "LastModifiedById": "0055g0000010kF7AAI",&#10;        "NumberOfConvertedLeads": "0"&#10;    }&#10;]]'/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="campaign-test-suite-post-campaign-flowTest" doc:id="8969d4ce-73db-409e-a5d0-634528a8896e" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="be7f776a-356b-4216-bc71-d9a8a14ef15d" processor="salesforce:create">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="ed109478-be16-4bb7-90ea-b3b3dd7306d1" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[{&#10;    "id": null,&#10;    "items": [&#10;        {&#10;            "exception": null,&#10;            "message": null,&#10;            "payload": {&#10;                "success": true,&#10;                "id": "7015g000000QLfTAAW",&#10;                "errors": []&#10;            },&#10;            "id": "7015g000000QLfTAAW",&#10;            "statusCode": null,&#10;            "successful": true&#10;        }&#10;    ],&#10;    "successful": true&#10;}&#10;]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Event" doc:id="6b406908-0138-4509-aa0b-da6da9cfdadb" >
+				<munit:attributes value='#[[{&#10;        &#10;        "Description": null,&#10;        "ExpectedResponse": "0.0",&#10;        "type": "Campaign",&#10;        "CampaignMemberRecordTypeId": null,&#10;        "Name": "kkkkkoo",&#10;        "StartDate": null,&#10;        "NumberSent": "0.0",&#10;        "ExpectedRevenue": null,&#10;        "OwnerId": "0055g0000010kF7AAI",&#10;        "BudgetedCost": null,&#10;        "ParentId": null,&#10;        "Status": "Planned",&#10;        "EndDate": null,&#10;        "ActualCost": null,&#10;        "Type": "Conference"&#10;    }]]' />
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="post-campaign-flow" doc:id="8d06d248-5732-42f8-9a4d-296ac0a4b07b" name="post-campaign-flow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="3e513e7c-0b8f-4542-b8f8-a8290149735a" actual="#[payload]" expected='#[{&#10;    "id": null,&#10;    "items": [&#10;        {&#10;            "exception": null,&#10;            "message": null,&#10;            "payload": {&#10;                "success": true,&#10;                "id": "7015g000000QLfTAAW",&#10;                "errors": []&#10;            },&#10;            "id": "7015g000000QLfTAAW",&#10;            "statusCode": null,&#10;            "successful": true&#10;        }&#10;    ],&#10;    "successful": true&#10;}]'/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="campaign-test-suite-upsert-campaign-flowTest" doc:id="b3ae1559-61ec-421f-825d-289a2b0c4950" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="ab418993-f359-4a96-8aa8-9e2b69d6f969" processor="salesforce:upsert">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="a63cf839-070c-44c5-86a3-5044eb4e5368" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[{&#10;    "id": null,&#10;    "items": [&#10;        {&#10;            "exception": null,&#10;            "message": null,&#10;            "payload": {&#10;                "created": false,&#10;                "success": true,&#10;                "id": "7015g000000QLfJAAW",&#10;                "errors": []&#10;            },&#10;            "id": "7015g000000QLfJAAW",&#10;            "statusCode": null,&#10;            "successful": true&#10;        }&#10;    ],&#10;    "successful": true&#10;}&#10;]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Event" doc:id="f7b68f08-8199-4025-8323-8801ca682e93" >
+				<munit:attributes value='#[[&#10;    {&#10;        &#10;        "Description": "koooi",&#10;        "ExpectedResponse": "0.0",&#10;        "type": "Campaign",&#10;        "CampaignMemberRecordTypeId": null,&#10;        "Name": "yaadev",&#10;        "Id": "7015g000000QLfJAAW",&#10;        "StartDate": null,&#10;        "NumberSent": "0.0",&#10;        "ExpectedRevenue": null,&#10;        "OwnerId": "0055g0000010kF7AAI",&#10;        "BudgetedCost": null,&#10;        "ParentId": null,&#10;        "Status": "Planned",&#10;        "EndDate": null,&#10;        "ActualCost": null,&#10;        "Type": "Conference"&#10;    }]]' />
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="upsert-campaign-flow" doc:id="26bbab2b-4523-4ea6-9cfb-f581414d4ebe" name="upsert-campaign-flow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="bcd697ba-8b29-4df3-b5eb-4913fe5c660a" actual="#[payload]" expected='#[{&#10;    "id": null,&#10;    "items": [&#10;        {&#10;            "exception": null,&#10;            "message": null,&#10;            "payload": {&#10;                "created": false,&#10;                "success": true,&#10;                "id": "7015g000000QLfJAAW",&#10;                "errors": []&#10;            },&#10;            "id": "7015g000000QLfJAAW",&#10;            "statusCode": null,&#10;            "successful": true&#10;        }&#10;    ],&#10;    "successful": true&#10;}]'/>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>

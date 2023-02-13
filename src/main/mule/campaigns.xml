@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns:json-logger="http://www.mulesoft.org/schema/mule/json-logger" xmlns:os="http://www.mulesoft.org/schema/mule/os"
+  xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+  xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce" xmlns="http://www.mulesoft.org/schema/mule/core"
+  xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/os http://www.mulesoft.org/schema/mule/os/current/mule-os.xsd
+http://www.mulesoft.org/schema/mule/json-logger http://www.mulesoft.org/schema/mule/json-logger/current/mule-json-logger.xsd">
+	<flow name="query-all-campaign-flow" doc:id="200c86ea-c407-497b-9117-c5eea8581ead">
+		<logger level="INFO" doc:name="Start Logger" doc:id="e9aa92a3-8c98-4f9c-be0c-c85b4bc8acec" />
+		<salesforce:query doc:name="Get All Campaign From Saelsforce Object" doc:id="8a591134-bac8-4607-b129-aef5f206005d"
+      config-ref="salesforceConfig-secure">
+			<salesforce:salesforce-query ><![CDATA[SELECT Name,Description,Type,Status,Id  FROM Campaign]]></salesforce:salesforce-query>
+    </salesforce:query>
+    <ee:transform doc:name="Payload to Json" doc:id="ba18227a-9c95-4247-89e8-22da139df208">
+      <ee:message>
+        <ee:set-payload resource="dwl/all-account-payload.dwl" />
+      </ee:message>
+    </ee:transform>
+    <logger level="INFO" doc:name="End Logger" doc:id="5bf15d78-989c-488c-b66f-b336305ef919" message="#[payload]"/>
+		<error-handler ref="connector-error-handler"/>
+  </flow>
+  <flow name="query-campaign-by-id-flow" doc:id="dc12bcd9-a137-4508-a61c-e0175de84856">
+		<logger level="INFO" doc:name="Start Logger" doc:id="2d63c155-efba-4bcf-9d92-43b752ecc8f9" />
+    <salesforce:query doc:name="Get Campaign By Campaign Id" doc:id="2c13a8db-5451-40d3-8425-609bd43c6beb" config-ref="salesforceConfig-secure">
+        <salesforce:salesforce-query><![CDATA[SELECT Name,Description,Type,Status,Id FROM Campaign WHERE Id = ':campaignid']]></salesforce:salesforce-query>
+        <salesforce:parameters><![CDATA[#[output application/java
+---
+{
+	"campaignid" : attributes.uriParams.id
+}]]]></salesforce:parameters>
+      </salesforce:query>
+    <set-payload value="#[%dw 2.0&#10;output application/json&#10;---&#10;payload]" doc:name="Payload to Json" doc:id="d6545f65-ae08-42fd-97f4-99eed156aecd" />
+    <logger level="INFO" doc:name="End Logger" doc:id="1bed24c1-ebf9-4251-a002-2bd58218b96d" message="#[payload]"/>
+		<error-handler ref="connector-error-handler"/>
+  </flow>
+	<flow name="post-campaign-flow" doc:id="e242fa2e-e30a-410c-97d6-1b10abe56a81" >
+		<logger level="INFO" doc:name="Start Logger" doc:id="28fbb7e1-fca2-4dfd-9c1e-9426b7e37340" message="#[payload]"/>
+		<salesforce:create doc:name="Create Campaign" doc:id="ed109478-be16-4bb7-90ea-b3b3dd7306d1" config-ref="salesforceConfig-secure" type="Campaign"/>
+		<ee:transform doc:name="Payload to Json" doc:id="e67b5321-6f92-4fb2-a370-13b468759037" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="End Logger" doc:id="90241603-62cd-48e2-8a01-de4159f7a7b9" message="#[payload]"/>
+	</flow>
+	
+	<flow name="upsert-campaign-flow" doc:id="8ba47425-6f48-463a-b363-4f219f275580" >
+		<logger level="INFO" doc:name="Start Logger" doc:id="4ae504bd-c97d-477d-8cd8-7a03f51c1226" message="#[payload]"/>
+		<salesforce:upsert doc:name="To Insert or Update Campaign" doc:id="a63cf839-070c-44c5-86a3-5044eb4e5368" config-ref="salesforceConfig-secure" objectType="Campaign" externalIdFieldName="Id">
+			<salesforce:records ><![CDATA[#[output application/java
+---
+payload]]]></salesforce:records>
+		</salesforce:upsert>
+		<ee:transform doc:name="Payload to Json" doc:id="207f1e77-d40c-4755-af1b-82478f6e244c" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="End Logger" doc:id="64748c59-3c5b-409a-8d7a-47d7677af2e0" message="#[payload]"/>
+	</flow>
+</mule>

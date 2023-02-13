@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd ">
+    <flow name="apix-salesforce-sapi-main">
+        <http:listener path="/api/${api.majorVersion}/*" config-ref="apiHttpListenerConfig">
+            <http:response statusCode="#[vars.httpStatus default 200]">
+                <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+            </http:response>
+            <http:error-response statusCode="#[vars.httpStatus default 500]">
+                <http:body><![CDATA[#[payload]]]></http:body>
+                <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+            </http:error-response>
+        </http:listener>
+        <apikit:router config-ref="apixSalesforceSapiConfig" />
+    </flow>
+    <flow name="put:\contact\(id):application\json:apixSalesforceSapiConfig" doc:id="dbf4e778-8e4c-4244-828b-7afce066e445">
+        <flow-ref doc:name="upsert-contact-flow" doc:id="258cf5aa-d3a6-4e91-81f6-0b01f265ff1a" name="upsert-contact-flow" />
+    </flow>
+    <flow name="put:\campaign\(id):application\json:apixSalesforceSapiConfig" doc:id="c7c570db-e5d7-492e-832f-b926cfe301ab">
+        <flow-ref doc:name="upsert-campaign-flow" doc:id="600c2de2-94a2-4fb6-8be1-280953354a4c" name="upsert-campaign-flow" />
+    </flow>
+    <flow name="put:\lead\(id):application\json:apixSalesforceSapiConfig" doc:id="03700482-0fe7-4454-9298-f77e0a30c84f">
+        <flow-ref doc:name="upsert-lead-flow" doc:id="f0b4b950-cfe2-4e47-8fc7-81b3ac7835ae" name="upsert-lead-flow" />
+    </flow>
+    <flow name="get:\accounts:apixSalesforceSapiConfig" doc:id="611972bc-c11e-44d0-8ba9-8f94d6508b2d">
+        <flow-ref doc:name="query-all-accounts-flow" doc:id="5d167fed-f871-4ed7-bfa4-f314714f1e7e" name="query-all-accounts-flow" />
+    </flow>
+    <flow name="get:\campaigns:apixSalesforceSapiConfig" doc:id="e958cca9-df64-4014-87cb-006131ca04ea">
+        <flow-ref doc:name="query-all-campaign-flow" doc:id="4036f41b-b876-45fa-925e-6301dbc5b332" name="query-all-campaign-flow" />
+    </flow>
+    <flow name="get:\contacts:apixSalesforceSapiConfig" doc:id="411cd4bd-0b71-44ff-ba27-18631e93a451">
+        <flow-ref doc:name="query-all-contacts-flow" doc:id="b079db7d-4bcd-4578-8296-92247bc2c5d4" name="query-all-contacts-flow" />
+    </flow>
+    <flow name="get:\leads:apixSalesforceSapiConfig" doc:id="80d7ee16-f550-4f92-9215-c182cd60a1bf">
+        <flow-ref doc:name="query-all-lead-flow" doc:id="f8ee030a-771e-4c36-bde6-786b911cc05e" name="query-all-lead-flow" />
+    </flow>
+    <flow name="get:\lead\(id):apixSalesforceSapiConfig" doc:id="b4aef26a-70f1-4a7d-9fb2-6e8113c60c5e">
+        <flow-ref doc:name="query-lead-by-id-flow" doc:id="c304dc68-ff89-4c5f-bd9b-2623ac5d2e86" name="query-lead-by-id-flow" />
+    </flow>
+    <flow name="get:\contact\(id):apixSalesforceSapiConfig" doc:id="fc7ff147-a0dd-4909-9591-609e308f4aa6">
+        <flow-ref doc:name="query-contacts-by-id-flow" doc:id="8bc7c02b-2e8b-4261-a121-2458ae0ba71d" name="query-contacts-by-id-flow" />
+    </flow>
+    <flow name="get:\campaign\(id):apixSalesforceSapiConfig" doc:id="a4881cd5-d763-4d04-b8aa-2a384d0ad7c7">
+        <flow-ref doc:name="query-campaign-by-id-flow" doc:id="61642a0b-2d08-4669-809f-642fb3b1d95f" name="query-campaign-by-id-flow" />
+    </flow>
+    <flow name="post:\accounts:application\json:apixSalesforceSapiConfig" doc:id="585d4bab-6da6-45bb-94f3-5d0f9b599481">
+        <flow-ref doc:name="post-account-flow" doc:id="a2aa90cd-d596-433f-954e-5c309f6ecf67" name="post-account-flow" />
+    </flow>
+    <flow name="post:\campaigns:application\json:apixSalesforceSapiConfig" doc:id="10f737ed-a22c-479e-97f6-666258c56590">
+        <flow-ref doc:name="post-campaign-flow" doc:id="4328bde6-4d38-4bcd-87c8-e1a6e56a0931" name="post-campaign-flow" />
+    </flow>
+    <flow name="post:\contacts:application\json:apixSalesforceSapiConfig" doc:id="42f38b61-961b-49ff-b8bc-9cf7feae8a3a">
+        <flow-ref doc:name="post-contact-flow" doc:id="af30cf63-cd02-467b-9587-c9d0e6fa81e9" name="post-contact-flow" />
+    </flow>
+    <flow name="post:\leads:application\json:apixSalesforceSapiConfig" doc:id="b5fdd758-4602-4571-a068-bdc6ec9e232e">
+        <flow-ref doc:name="post-lead-flow" doc:id="c325ddda-d797-4b6d-a974-2719e605f270" name="post-lead-flow" />
+    </flow>
+    <flow name="put:\account\(id):application\json:apixSalesforceSapiConfig" doc:id="7c266a9e-685f-4d72-b8c8-793ae7cc9df0">
+        <flow-ref doc:name="upsert-account-flow" doc:id="99db8c38-dc64-403e-801b-aacf4df8a5f1" name="upsert-account-flow" />
+    </flow>
+    <flow name="get:\account\(id):apixSalesforceSapiConfig" doc:id="060d029d-509d-4333-87fb-de3f19bc5124">
+        <flow-ref doc:name="query-account-by-id-flow" doc:id="76802234-fcaa-4dd4-a11b-490a6e23e1b4" name="query-account-by-id-flow" />
+    </flow>
+</mule>

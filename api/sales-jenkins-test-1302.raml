@@ -1,0 +1,273 @@
+#%RAML 1.0
+title: sales-jenkins-test-1302
+description: To Get Account Details From Salesforce Object
+version: v1
+mediaType: application/json
+protocols: [HTTPS,HTTP]
+
+documentation:
+  - title: sales-jenkins-test-1302
+    content: Welcome to the api-salesforce-sapi. This can be used to retrive account-details from salesforce object.
+
+uses:
+  traitsLib: /exchange_modules/b0beec90-c6cc-4c36-8f7c-ef1f8f91253b/istika-common-header-library/1.0.1/istika-common-header-library.raml
+  datatypeLib: /exchange_modules/b0beec90-c6cc-4c36-8f7c-ef1f8f91253b/salesforce-datatype-library/1.0.1/salesforce-datatype-library.raml
+
+traits:
+  
+  error-response: !include /exchange_modules/b0beec90-c6cc-4c36-8f7c-ef1f8f91253b/istika-error-responses/1.0.0/istika-error-responses.raml
+
+types:
+  getAccountDetailsResponse: datatypeLib.account
+/accounts:
+  description: get account details
+  get:
+    displayName: Get Account Details
+    is: [error-response,traitsLib.client-id-required,traitsLib.correlationId]
+    
+    description: Endpoint to get All Account Details 
+    responses:
+      200:
+        headers:
+          Content-Type:
+        body:
+          application/json:
+            type: getAccountDetailsResponse[]
+            example:
+              !include /resources/examples/account-get-response-example/multiple-accounts-example.json
+  post:
+      description: Create Accounts in Salesforce
+      displayName: account creation
+      body:
+        application/json:
+          type: datatypeLib.postaccount[]
+          example:
+            !include /resources/examples/request/post-body-example.json
+      responses:
+        201:
+          headers:
+            Content-Type:
+          body:
+            application/json:
+              example: !include /resources/examples/response/account-post-example.json             
+/account:
+  /{id}:
+    get:
+      displayName: Get Account Details By Account ID
+      is: [error-response,traitsLib.client-id-required,traitsLib.correlationId]
+      description: Endppoint to get Account Details By Account ID  
+      responses:
+        200:
+          headers:
+            Content-Type:
+          body:
+            application/json:
+              type: getAccountDetailsResponse
+              example:
+                !include /resources/examples/account-get-response-example/single-account-example.json
+    put:
+      description: Update Members in Salesforce by ID
+      displayName: update the account
+      body:
+        application/json:
+         type: datatypeLib.account[]
+         example:
+           !include /resources/examples/request/post-body-example.json
+      responses:
+        201:
+          headers:
+            Content-Type:
+          body:
+            application/json:
+              example:
+                !include /resources/examples/response/update-response-example.json
+
+/contacts:
+  get:
+    displayName: Get Contacts Details
+    is: [error-response,traitsLib.client-id-required,traitsLib.correlationId]
+    
+    description: Endpoint to get All Contacts Details 
+    responses:
+      200:
+        headers:
+          Content-Type:
+        body:
+          application/json:
+            type: datatypeLib.contacts[]
+            example:
+              !include /resources/examples/contacts/response/query-all-response.json
+  post:
+      description: Create Contacts in Salesforce
+      displayName: contacts creation 
+      body:
+        application/json:
+          type: datatypeLib.contacts[]
+          example:
+            !include /resources/examples/contacts/request/post-body-file.json
+      responses:
+        201:
+          headers:
+            Content-Type:
+          body:
+            application/json:
+              example: !include /resources/examples/contacts/response/post-response-file.json
+/contact:                   
+  /{id}:
+    get:
+      displayName: Get Contact Deatils By  ID
+      is: [error-response,traitsLib.client-id-required,traitsLib.correlationId]
+      
+      description: Endpoint to get Contact Details By  ID  
+      responses:
+        200:
+          headers:
+            Content-Type:
+          body:
+            application/json:
+              type: datatypeLib.contacts[]
+              example:
+                !include /resources/examples/contacts/response/query-by-id-response-file.json
+    put:
+      description: Update Contacts in Salesforce by ID
+      displayName: update contacts
+      body:
+        application/json:
+         type: datatypeLib.contacts
+         example:
+           !include /resources/examples/contacts/request/upsert-body-file.json
+      responses:
+        201:
+          headers:
+            Content-Type:
+          body:
+            application/json:
+              example:
+                !include /resources/examples/contacts/response/upsert-response-file.json
+
+
+/leads:
+  get:
+    displayName: Get Lead Details
+    is: [error-response,traitsLib.client-id-required,traitsLib.correlationId]
+
+    description: Endpoint to get All Lead Details 
+    responses:
+      200:
+        headers:
+          Content-Type:
+        body:
+          application/json:
+            type: datatypeLib.lead[]
+            example:
+              !include /resources/examples/lead/response/query-all-file.json
+  post:
+      description: Create Lead in Salesforce
+      displayName: lead creation 
+      body:
+        application/json:
+          type: datatypeLib.lead[]
+          example:
+            !include /resources/examples/lead/request/post-lead-file.json
+      responses:
+        201:
+          headers:
+            Content-Type:
+          body:
+            application/json:
+              example: !include /resources/examples/lead/response/post-response-file.json
+/lead:              
+  /{id}:
+    get:
+      displayName: Get Lead Deatils By ID
+      is: [error-response,traitsLib.client-id-required,traitsLib.correlationId]
+      
+      description: Endppoint to get Lead Details By  ID  
+      responses:
+        200:
+          headers:
+            Content-Type:
+          body:
+            application/json:
+              type: datatypeLib.lead[]
+              example:
+                !include /resources/examples/lead/response/query-by-id-file.json
+    put:
+      description: Update Lead in Salesforce by ID
+      displayName: update lead
+      body:
+        application/json:
+         type: datatypeLib.lead[]
+         example:
+           !include /resources/examples/lead/request/upsert-lead-file.json
+      responses:
+        201:
+          headers:
+            Content-Type:
+          body:
+            application/json:
+              example:
+                !include /resources/examples/lead/response/upsert-response-file.json
+
+/campaigns:
+  get:
+    displayName: Get Campaign Details
+    is: [error-response,traitsLib.client-id-required,traitsLib.correlationId]
+
+    description: Endpoint to get All Campaign Details 
+    responses:
+      200:
+        headers:
+          Content-Type:
+        body:
+          application/json:
+            type: datatypeLib.campaign[]
+            example:
+              !include /resources/examples/campaign/response/query-all.json
+  post:
+      description: Create Campaign in Salesforce
+      displayName: campaign creation 
+      body:
+        application/json:
+          type: datatypeLib.campaign[]
+          example:
+            !include /resources/examples/campaign/request/post-body.json
+      responses:
+        201:
+          headers:
+            Content-Type:
+          body:
+            application/json:
+              example: !include /resources/examples/campaign/response/post-response.json
+/campaign:              
+  /{id}:
+    get:
+      displayName: Get Campaign Deatils By ID
+      is: [error-response,traitsLib.client-id-required,traitsLib.correlationId]
+      
+      description: Endppoint to get campaign Details By  ID  
+      responses:
+        200:
+          headers:
+            Content-Type:
+          body:
+            application/json:
+              type: datatypeLib.campaign[]
+              example:
+                !include /resources/examples/campaign/response/query-by-id.json
+    put:
+      description: Update Campaign in Salesforce by ID
+      displayName: update campaign
+      body:
+        application/json:
+         type: datatypeLib.campaign[]
+         example:
+           !include /resources/examples/campaign/request/upsert-body.json
+      responses:
+        201:
+          headers:
+            Content-Type:
+          body:
+            application/json:
+              example:
+                !include /resources/examples/campaign/response/upsert-response.json

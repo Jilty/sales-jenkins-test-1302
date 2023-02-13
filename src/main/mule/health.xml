@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<sub-flow name="readiness-check-subflow" doc:id="0326a18f-4f4a-42a0-9a2d-3e7c82be31b3" >
+		<try doc:name="Try" doc:id="e08c7139-d865-4df6-97b4-283ec42bf8fb" >
+			<salesforce:query doc:name="Get  Top 2 Accounts From Saelsforce Object" doc:id="e4d70656-4286-438d-983c-5de9163c9d1c" config-ref="salesforceConfig-secure">
+				<salesforce:salesforce-query ><![CDATA[SELECT Account.Id FROM Account LIMIT 2]]></salesforce:salesforce-query>
+			</salesforce:query>
+			<error-handler >
+				<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="2ac4e828-886a-48ef-9f49-880c576aa705" >
+					<logger level="INFO" doc:name="Logger" doc:id="17f69ca6-a925-441e-ae57-48320184f8aa" message="ready"/>
+				</on-error-continue>
+			</error-handler>
+		</try>
+		<ee:transform doc:name="Readiness Response" doc:id="2fd4574b-f01b-4f94-a467-78e83773ee17" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	servicename:"salesforce",
+	status: if(payload[0].Id == null )
+	"down"
+	 else
+	"up"
+	
+}
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+</mule>

@@ -1,0 +1,6 @@
+#%Catalog Descriptor 1.0
+projects:
+  - main: api\sales-jenkins-test-1302.raml
+    assetId: sales-jenkins-test-1302
+    version: 1.0.5
+    apiVersion: v1

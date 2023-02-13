@@ -1,0 +1,13 @@
+salesforce:
+  username: "![en34s2s4uxa4QoJkgCnnPmzXDAVLLYYnS4qQbYwK99s=]"
+  password: "![VA64ksoHbZLGWR+8uBsHew==]"
+  securitytoken: "![BnBp+eHgPp5FH/cweFPHOjC/9HkIJwvpDKbbcOVaNvU=]"
+      
+tls:
+  keystore:
+    password: "mule"
+    type: "pkcs12"
+    path: "certs/istikaDemo.p12"
+    
+api:
+ id: "18489752"    

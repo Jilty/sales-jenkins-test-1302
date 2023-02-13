@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="account-test-suite.xml" />
+	<munit:test name="account-test-suite-post-account-flowTest" doc:id="29405e13-0c58-4e16-a442-3c3e4dadc2f7" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="adbe3ee6-aef3-48cd-b559-a75eb3696f25" processor="salesforce:create">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="ed109478-be16-4bb7-90ea-b3b3dd7306d1" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[{&#10;    "id": null,&#10;    "items": [&#10;        {&#10;            "exception": null,&#10;            "message": null,&#10;            "payload": {&#10;                "success": true,&#10;                "id": "0035g00000FMAQsAAP",&#10;                "errors": []&#10;            },&#10;            "id": "0035g00000FMAQsAAP",&#10;            "statusCode": null,&#10;            "successful": true&#10;        }&#10;    ],&#10;    "successful": true&#10;}]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Event" doc:id="b3f0a50f-e76a-4292-95a7-383d169ef14b" >
+				<munit:payload value='#[[ {&#10;        "Email": "vibinviswanath14@gmail.com",&#10;        "FirstName": "jhooonggv",&#10;        "Phone": "97987987",&#10;        "Title": "DEVELOPER",&#10;        "Id": null,&#10;        "LastName": "kh",&#10;        "type": "Contact"&#10;    }]]' />
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name=" post-account-flow" doc:id="586e2b86-433e-4459-ab16-9c85b241cfb8" name="post-account-flow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="3f874259-e4b8-463b-b1bc-44552f83d109" actual="#[payload]" expected='#[{&#10;    "id": null,&#10;    "items": [&#10;        {&#10;            "exception": null,&#10;            "message": null,&#10;            "payload": {&#10;                "success": true,&#10;                "id": "0035g00000FMAQsAAP",&#10;                "errors": []&#10;            },&#10;            "id": "0035g00000FMAQsAAP",&#10;            "statusCode": null,&#10;            "successful": true&#10;        }&#10;    ],&#10;    "successful": true&#10;}]'/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="account-test-suite-upsert-account-flowTest" doc:id="5666d990-f641-459d-b308-b7b64183ab0b" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="9b50c926-a90f-4c53-8ce9-995d954cd16e" processor="salesforce:upsert">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="a63cf839-070c-44c5-86a3-5044eb4e5368" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[{&#10;    "id": null,&#10;    "items": [&#10;        {&#10;            "exception": null,&#10;            "message": null,&#10;            "payload": {&#10;                "created": false,&#10;                "success": true,&#10;                "id": "0035g00000FMAQsAAP",&#10;                "errors": []&#10;            },&#10;            "id": "0035g00000FMAQsAAP",&#10;            "statusCode": null,&#10;            "successful": true&#10;        }&#10;    ],&#10;    "successful": true&#10;}]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Event" doc:id="ef5c0b6f-ecd0-43a7-8fc5-1a0c8c1b170e" >
+				<munit:payload value='#[[{&#10;        "Email": "vibinviswanath14@gmail.com",&#10;        "FirstName": "jh",&#10;        "Phone": "9847292097",&#10;        "Title": "DEVELOPER",&#10;        "Id": "0035g00000FMAQsAAP",&#10;        "LastName": "kh",&#10;        "type": "Contact"&#10;    }]&#10;]' />
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="upsert-account-flow" doc:id="efebe116-aba9-4a1c-bdb4-73d8e22cd899" name="upsert-account-flow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="6042166f-94b5-4d2c-ac20-b69632b89c22" actual="#[payload]" expected='#[{&#10;    "id": null,&#10;    "items": [&#10;        {&#10;            "exception": null,&#10;            "message": null,&#10;            "payload": {&#10;                "created": false,&#10;                "success": true,&#10;                "id": "0035g00000FMAQsAAP",&#10;                "errors": []&#10;            },&#10;            "id": "0035g00000FMAQsAAP",&#10;            "statusCode": null,&#10;            "successful": true&#10;        }&#10;    ],&#10;    "successful": true&#10;}]'/>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>

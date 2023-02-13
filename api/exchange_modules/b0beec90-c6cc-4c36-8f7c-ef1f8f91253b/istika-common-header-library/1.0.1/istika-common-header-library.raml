@@ -1,0 +1,33 @@
+#%RAML 1.0 Library
+usage:
+traits:
+  client-id-required:
+    displayName: ClientId Enforcement
+    description: Base64-encoded "clientId:clientSecret"
+    headers:
+      X-CLIENT-ID:
+        type: string
+        required: true
+      X-CLIENT-SECRET:
+        type: string
+        required: true
+    responses:
+      401:
+        description: Unauthorized or invalid client application credentials
+      500:
+        description: Bad response from authorization server, or WSDL SOAP Fault error
+  correlationId:
+    headers:
+      X-CORRELATION-ID:    
+        displayName: CorrelationId
+        description: CorrelationId for end to end tracking of a request
+        type: string
+        required: false
+        minLength: 1
+        maxLength: 36
+        example: d135d5f1-3dd0-45fa-8f26-55d8d6a44876    
+    responses:
+        401:
+          description: Unauthorized or invalid client application credentials
+        500:
+          description: Bad response from authorization server, or WSDL SOAP Fault error
