@@ -9,6 +9,8 @@ pipeline
 script{
     configFileProvider([configFile(fileId: 'da01fc76-5c2b-4f0d-948a-c101b4cc4340', variable: 'settings')]){
   LAST_STARTED = env.STAGE_NAME
+	    sh 'mvn --version'
+	    
 sh 'mvn -f pom.xml -s $settings clean install -DskipTests'
   }
 }
