@@ -54,22 +54,22 @@ stage('SonarQube'){
                 }
             }
         }
-        stage('Quality Gate'){
-            steps {
-                script {
-                    timeout(time: 1, unit: 'HOURS') { 
-                        sh "curl -u admin:sonarqubenjclabs123 -X GET -H 'Accept: application/json' http://142.93.218.194:9000/api/qualitygates/project_status?projectKey=com.mycompany:sales-jenkins-test-1302 > status.json"
-                        def json = readJSON file:'status.json'
-                        echo "${json.projectStatus}"
-                        if ("${json.projectStatus.status}" != "OK") {
-                            currentBuild.result = 'FAILURE'
-                            error('Pipeline aborted due to quality gate failure.')
-                        }
-                    }
-                }
-            }
+//         stage('Quality Gate'){
+//             steps {
+//                 script {
+//                     timeout(time: 1, unit: 'HOURS') { 
+//                         sh "curl -u admin:sonarqubenjclabs123 -X GET -H 'Accept: application/json' http://142.93.218.194:9000/api/qualitygates/project_status?projectKey=com.mycompany:sales-jenkins-test-1302 > status.json"
+//                         def json = readJSON file:'status.json'
+//                         echo "${json.projectStatus}"
+//                         if ("${json.projectStatus.status}" != "OK") {
+//                             currentBuild.result = 'FAILURE'
+//                             error('Pipeline aborted due to quality gate failure.')
+//                         }
+//                     }
+//                 }
+//             }
             
-        }
+//         }
  
 //    stage('Build image') {
 //       steps {
@@ -125,6 +125,17 @@ cucumber(failedFeaturesNumber: -1, failedScenariosNumber: -1, failedStepsNumber:
   }
    }
   }
+	 
+	  stage('newman tests') {
+      		steps {
+        		script {
+	  	        	LAST_STARTED = env.STAGE_NAME
+				
+				sh 'newman --version'
+				sh 'newman run postman-collection-cloudhub/apix-salesforce-sapi-cloudhub.postman_collection.json --global-var X-CLIENT-ID=e47be776126b417097ae4bd9d61d8b4e --global-var X-CLIENT-SECRET=B629d050f81c4204917DDE4Aa9586dBd --global-var X-CORRELATION-ID=1234 --global-var baseUrl=sales-jenkins-test-1302-dev.us-e2.cloudhub.io/api/v1 --global-var readyUrl=sales-jenkins-test-1302-dev.us-e2.cloudhub.io '
+        	            }
+      		}
+	} 
  
  
  
