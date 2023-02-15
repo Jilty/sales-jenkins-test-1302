@@ -318,12 +318,12 @@
 			<classifier>mule-plugin</classifier>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
+<!-- 		<dependency>
 			<groupId>b0beec90-c6cc-4c36-8f7c-ef1f8f91253b</groupId>
 			<artifactId>apix-common-maven-library-assets</artifactId>
 			<version>1.0.4</version>
 			<classifier>mule-plugin</classifier>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>b0beec90-c6cc-4c36-8f7c-ef1f8f91253b</groupId>
 			<artifactId>sales-jenkins-test-1302</artifactId>
