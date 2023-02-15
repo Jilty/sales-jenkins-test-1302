@@ -120,8 +120,8 @@ cucumber(failedFeaturesNumber: -1, failedScenariosNumber: -1, failedStepsNumber:
   stage('Deploy application to cloudHub'){
    steps{
     configFileProvider([configFile(fileId: 'da01fc76-5c2b-4f0d-948a-c101b4cc4340', variable: 'settings')]){
-  sh 'mvn -f pom.xml -s $settings deploy -DmuleDeploy -DskipTests -Dusername=jilty -Dpassword=Jilty@123 -DapplicationName=sales-jenkins-test-1302 -Dap.client_id=fda777bd3e3b4fcb93aff995fea2043d  -Dap.client_secret=4193AA1986054C548Bf757fd1B7F6f18 -Dapp.runtime.server=4.4.0 -Ddeployment.env=dev  -Dsecure.key=mule -Dworkers=1 -DworkerType=null -Dapi.id=18489752  -Danypoint.businessGroup="NJC POC"'
-
+//   sh 'mvn -f pom.xml -s $settings deploy -DmuleDeploy -DskipTests -Dusername=jilty -Dpassword=Jilty@123 -DapplicationName=sales-jenkins-test-1302 -Dap.client_id=fda777bd3e3b4fcb93aff995fea2043d  -Dap.client_secret=4193AA1986054C548Bf757fd1B7F6f18 -Dapp.runtime.server=4.4.0 -Ddeployment.env=dev  -Dsecure.key=mule -Dworkers=1 -DworkerType=null -Dapi.id=18489752  -Danypoint.businessGroup="NJC POC"'
+ sh 'anypoint-cli --username=jilty --password=Jilty@123 --organization=b0beec90-c6cc-4c36-8f7c-ef1f8f91253b runtime-mgr cloudhub-application deploy --runtime "4.4.0" --workers "1" --workerSize "0.1" --region "$(REGION)" --property "secure.key: mule" --property "api.id:18489752" --property "mule.env: dev"  --property "mule.key: mule"   --property "anypoint.platform.platform_base_uri:https://anypoint.mulesoft.com/" --property "anypoint.platform.client_id:e47be776126b417097ae4bd9d61d8b4e" --property "anypoint.platform.client_secret:B629d050f81c4204917DDE4Aa9586dBd"  --property "project.version: 1.0.0" sales-jenkins-test-1302-dev /var/lib/jenkins/.m2/repository/com/mycompany/sales-jenkins-test-1302/1.0.0-SNAPSHOT/sales-jenkins-test-1302-1.0.0-SNAPSHOT-mule-application.jar'
 
   }
    }
